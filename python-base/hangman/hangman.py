@@ -39,6 +39,16 @@ class Game:
         word = random.choice(word_list)
         return word
 
+    def write_wors(self, word: star):
+        '''
+        Записывает слова в файл
+        '''
+
+        path = str(Path.cwd()) + '/prWords'
+
+        with open(path, 'w') as writer:
+            text = writer.write(word)
+
 
 
     def check_word(self, letter: str,) -> int:
@@ -92,10 +102,14 @@ class Game:
             self.letters[i] = letter
 
     def write_man(self):
-
+        '''
+        Рисует человечка
+        '''
         x, y, symbol = lg.hanman[self.attempts]
         self.stdckr.addstr(x, y, f'{symbol}')
 
+    def menu(self, stdstr):
+        key = str(stdscr.get_wch())
 
     def init_window(self, stdscr):
         '''
@@ -114,6 +128,19 @@ class Game:
         # нижняя граница
         stdscr.addstr(22, 0, f'{border}')
 
+        for i in range(10, 16):
+            stdscr.addstr(i, 19, '|')
+            stdscr.addstr(i, 50, '|')
+        for i in range(20, 50):
+            stdscr.addstr(9, i, '_')
+            stdscr.addstr(11, i, '-')
+            stdscr.addstr(13, i, '-')
+            stdscr.addstr(15, i, '-')
+            stdscr.addstr(17, i, '_')
+
+        self.menu()
+
+
         # рисуем ячейки под буквы
         let = " ".join(self.letters)
         stdscr.addstr(19, 5, f'{let}')
@@ -126,16 +153,6 @@ class Game:
         ung = " ".join(self.unguessed_lettrs)
         stdscr.addstr(12, 21, 'Неугаданные буквы:')
         stdscr.addstr(14, 21, f'{ung}')
-
-        for i in range(10, 16):
-            stdscr.addstr(i, 19, '|')
-            stdscr.addstr(i, 50, '|')
-        for i in range(20, 50):
-            stdscr.addstr(9, i, '_')
-            stdscr.addstr(11, i, '-')
-            stdscr.addstr(13, i, '-')
-            stdscr.addstr(15, i, '-')
-            stdscr.addstr(17, i, '_')
 
 
         while self.game_status == 'RUN':            
