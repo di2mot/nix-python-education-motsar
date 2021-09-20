@@ -1,6 +1,6 @@
 '''Hangman by Di2mot'''
 import curses
-from curses import wrapper, echo, noecho
+from curses import wrapper, echo
 import random
 from pathlib import Path
 # локальный импорт
@@ -180,12 +180,11 @@ class Game:
 
 
         while self.game_status:
-            '''
-            Меню игры
-            Играть (И) 
-            Результаты (Р)
-            Выйти (В)
-            '''
+            # Меню игры
+            # Играть (И)
+            # Результаты (Р)
+            # Выйти (В)
+
             if self.game_status == 'MENU':
 
                 self.init_windows(stdscr)
@@ -222,8 +221,8 @@ class Game:
 
                     word_list = self.get_word('prWords', mode='l')
 
-                    for i in range(0, len(word_list)):
-                        stdscr.addstr(2+i, 55, word_list[i])
+                    for i, words in enumerate(word_list):
+                        stdscr.addstr(2 + i, 55, words)
 
                     stdscr.get_wch()
 
