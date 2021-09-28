@@ -3,12 +3,13 @@
 from transport import Transport
 from animal import Animal
 from fly import Fly
+from water import Water
 
 
 class Hatchback(Transport):
     """Хэтчбег"""
-    def __init__(self, transport_type, model, engine_type, seats):
-        Transport.__init__(self, transport_type, model, engine_type, seats)
+    def __init__(self, brand, model, engine_type, seats):
+        Transport.__init__(self, brand, model, engine_type, seats)
 
     def add_passenger(self, passenger: int):
         """Добавить пассажиров"""
@@ -31,8 +32,8 @@ class Hatchback(Transport):
 
 class Wagon(Transport, Animal):
     """Гужевая повозка"""
-    def __init__(self, transport_type, model, engine_type, seats, *args, **kwargs):
-        Transport.__init__(self, transport_type, model, engine_type, seats)
+    def __init__(self, brand, model, engine_type, seats, *args, **kwargs):
+        Transport.__init__(self, brand, model, engine_type, seats)
         Animal.__init__(self, *args, **kwargs)
         self.kind = kwargs.get('kind', 'DefKind')
         self.name = kwargs.get('name', 'DefName')
@@ -128,7 +129,7 @@ class Bird(Animal, Fly):
         self.area = self.area_calc()
         self.speed = kwargs.get('speed', 1)
         self.weight = kwargs.get('weight', 1)
-        self.lift_force = self.lifting_force((self.area, self.speed, self.weight))
+        self.lift_force = self.lifting_force(self.area, self.speed, self.weight)
         self.power = 100
 
 
@@ -138,12 +139,12 @@ class Bird(Animal, Fly):
         return self.wings * self.length
 
     @staticmethod
-    def lifting_force(kwargs: tuple):
+    def lifting_force(*args, **kwargs):
         """ РСчёт подъёмной силы
          co: коэфициент подъёмной силы
          qo: массовая плотность воздуха
          """
-        area, speed, weight = kwargs
+        area, speed, weight = args
         coof_lift = 28
         air_density = 1.25
         lift_force = coof_lift * ((air_density * speed ** 2) / 2) * area
@@ -212,7 +213,7 @@ class Plain(Transport, Fly):
         return res
 
 
-    def lifting_force(self, kwargs=0):
+    def lifting_force(self, **kwargs):
         """ РСчёт подъёмной силы
          coof_lift: коэфициент подъёмной силы
          air_density: массовая плотность воздуха
@@ -228,19 +229,42 @@ class Plain(Transport, Fly):
         """Запрвка"""
         self.fuel += fuel
 
+class FlySubmarine(Water, Fly):
+    """Базовый класс самолёта"""
+    def __init__(self, *args, **kwargs):
+        Water.__init__(self, *args, **kwargs)
+        Fly.__init__(self, *args, **kwargs)
 
-car_1  = Hatchback('Tayota', 'camry', 'v6', 6)
+
+    def lifting_force(self, **kwargs):
+        """Добавить пассажиров"""
+        print('Я глиссер, я не умею летать!')
+
+
+    def get_power(self, fuel):
+        """Запрвка"""
+        self.fuel += fuel
+
+    def displacement(self):
+        """Расчёт водоизмещения"""
+        dsplmnt_value = self.length * self.height * self.wings
+        return dsplmnt_value
+
+
+car_1  = Hatchback(brand='Tayota', model='camry', engine_type='v6', seats=4)
 car_1.add_passenger(1)
 car_1.add_passenger(2)
 print(car_1.engine)
 
 
-village_car = Wagon('Povozka', 'Flash', 'v1', 6, ('Horse', 'Boorka'))
+village_car = Wagon(brand='Povozka', model='Flash', engine_type='v1',
+                    seats=6, kind='Horse', name='Boorka')
 print(village_car.name)
 print(village_car.sleep(10))
 print(village_car.get_passengers)
 
-pirat = Bird('Albatros', 'Pirat', 'wings', 3.2, 0.1, 30, 11)
+pirat = Bird(brand='Albatros', model='Pirat', engine_type='wings',
+             length=3.2, weight=0.1, speed=30, wings=11)
 print(f'Подъёмная сила {pirat.kind} {pirat.lift_force} H')
 
 chack_noris_car = Pickup(transport_type='Ford', model='F500', engine_type='v6', seats=4, cargo=500)
@@ -249,3 +273,6 @@ chack_noris_car.add_cargo(10)
 plain = Plain(transport_type='plain', model='A320neo', engine_type='LEAPВ',
               total_cargo=250, wings=35.8, length=44, cargo=780, free_space=100)
 print(f'Подъёмная сила {plain.model} {plain.lifting_force()} H')
+
+yellow_subm =FlySubmarine(engine_type='water cannon',length=10,wings=150,height=30,speed=45)
+print(yellow_subm.displacement())
