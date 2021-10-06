@@ -30,9 +30,9 @@ class TikTakToe:
     def check_available_moves(self):
         """Проверка на доступность хода"""
         status = True
-        if self.available_moves <= 0:
+        if self.available_moves <= 1:
             # Draw - ничья
-            self.status = 'Draw, out of moves'
+            self.status = 'Draw \nout of moves'
             self.game = False
             status = False
             print('Ничья, ходы кончились!')

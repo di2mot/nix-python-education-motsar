@@ -11,6 +11,7 @@ class GuiApp(tk.Frame):
         self.player_step = 'X'
         self.game = True
         self.status = None
+        self.score = [0, ':', 0]
 
         # сюда добавить ники игроков
         self.players_names = {"X":'', "O":''}
@@ -51,6 +52,7 @@ class GuiApp(tk.Frame):
 
 
     def create_menu(self):
+        """Создаю меню"""
         self.player_1 = tk.Button(self)
         self.player_1["width"] = 10
         self.player_1["height"] = 5
@@ -67,7 +69,7 @@ class GuiApp(tk.Frame):
         self.players = tk.Label(self)
         self.players["width"] = 10
         self.players["height"] = 5
-        self.players["text"] = "SCORE\n00"
+        self.players["text"] = f"SCORE\n{self.score[0]}{self.score[1]}{self.score[2]}"
         self.players.grid(row=0, column=1, sticky='nsew')
 
         self.input_player_1 = tk.Entry(self)
@@ -112,7 +114,6 @@ class GuiApp(tk.Frame):
 
         self.quit = tk.Button(self, text="QUIT", fg="red",
                               command=self.master.destroy)
-        # self.quit.pack(side="bottom")
         self.quit.grid(row=4, column=2, sticky='nsew')
 
         menu = tk.Button(self, text="Menu", fg="red",
@@ -135,23 +136,8 @@ class GuiApp(tk.Frame):
         self.right_empty_0.grid(row=3, column=2, sticky='nsew')
 
 
-
-    def create_widgets(self):
-        self.hi_there = tk.Button(self)
-        self.hi_there["width"] = 25
-        self.hi_there["height"] = 5
-        self.hi_there["text"] = "Hello World\n(click me)"
-        self.hi_there["command"] = self.say_hi
-        self.hi_there.pack(side="top")
-
-        self.quit = tk.Button(self, text="QUIT", fg="red",
-                              command=self.master.destroy)
-        self.quit.pack(side="bottom")
-
     def say_hi(self, rown, coln, position=0):
-        print(f"hi there, everyone {position}!")
         self.buttons[rown][coln]['text'] = self.player_step
-        print(f"Вернулась кнопка: {self.buttons[rown][coln]}")
 
     def game_result(self, player):
         """Выведит посередине экрана победителя"""
