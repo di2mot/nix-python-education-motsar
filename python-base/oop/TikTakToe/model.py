@@ -1,11 +1,16 @@
+"""Control class in MVC"""
+import tkinter as tk
+import os
 from core import TikTakToe
 from gui import GuiApp
-import tkinter as tk
+
 
 
 class GameModel(GuiApp, TikTakToe):
+    """Control class"""
 
     def __init__(self):
+        """Init"""
         root = tk.Tk()
         GuiApp.__init__(self, master=root)
         TikTakToe.__init__(self)
@@ -22,11 +27,14 @@ class GameModel(GuiApp, TikTakToe):
         self.game = True
         self.create_game_field_1()
 
+    def clear_logging(self):
+        """Logging"""
+        print('log is clean')
+        os.system(r' >wins.log')
 
-    def say_hi(self, rown, coln, position=0):
+    def say_hi(self, *args):
         """Главная функция игры которая рулит всем"""
-        # print(f"Its WIN, everyone {position}!")
-        # print(f"Вернулась кнопка: {self.buttons[rown][coln]}")
+        rown, coln, position = args
         if self.game:
             if self._check_correct_input(int(position)):
                 self.buttons[rown][coln]['text'] = self.player_step
@@ -34,11 +42,8 @@ class GameModel(GuiApp, TikTakToe):
 
                 if self.check_win():
                     self.status = f'Победа за\n {self.player_step}'
-                    self.score
                     self.game = False
                     self.game_res()
                 if not self.check_available_moves():
                     self.game_res()
-
                 self._change_player()
-
