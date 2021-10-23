@@ -11,88 +11,65 @@ class Vertex:
     """
 
     def __init__(self, vertex_name=None):
-        self.vertex_name = vertex_name
         self.edges = LinkedList()
+        self.vertex_name = vertex_name
 
+class VertCarier:
+    def __init__(self):
+        self.vertexes = LinkedList()
 
 class Graph:
     """
     insert- добавить узел и связи с другими узлами по ссылкам,
     lookup - найти узел по значению и вернуть ссылку на него,
-    delete - удалить узел по ссылке и связи с другими узлами"""
+    delete - удалить узел по ссылке и связи с другими узлами """
 
     def __init__(self):
-        # vertexes - список всех вершин в графе
+        # vertex_edges - список всех вершин в графе
         self.vertexes = LinkedList()
         self.length = 0
         self.vert_name_list = LinkedList()
 
-    def insert(self, vertex_name, vertexes):
+    def insert(self, vertex_name, vertex_edges):
         """insert- добавить узел и связи с другими узлами по ссылкам"""
         print("-" * 100, "\ndef insert\n", "-" * 100)
-        print(f"33. self.vert_name_list.lookup({vertex_name}) {self.vert_name_list.lookup(vertex_name)}")
-        print(f"34. self.vert_name_list.lookup({vertexes}) {self.vert_name_list.lookup(vertexes)}")
+        # print(f"33. self.vert_name_list.lookup({vertex_name}) {self.vert_name_list.lookup(vertex_name)}")
+        # print(f"34. self.vert_name_list.lookup({vertex_edges}) {self.vert_name_list.lookup(vertex_edges)}")
 
         # проверяю, есть ли элементы в списке вершин
-
         if self.vert_name_list.lookup(vertex_name) is None:
-            # print(f"39. self.vert_name_list.lookup({vertex_name}) {self.vert_name_list.lookup(vertex_name)}")
-            temp = Vertex(vertex_name)
-            temp.edges.append(vertexes)
+            print(f"39. self.vert_name_list.lookup({vertex_name}) {self.vert_name_list.lookup(vertex_name)}")
+            self._insert(vertex_name, vertex_edges)
+        print(f"40. self.vert_name_list.lookup({vertex_name}) {self.vert_name_list.lookup(vertex_name)}")
 
-            # append new vertex to list of vertexes
-            self.vertexes.append(temp)
-            self.vert_name_list.append(vertex_name)
-            self.length += 1
-        print(f"47. self.vert_name_list.lookup({vertex_name}) {self.vert_name_list.lookup(vertex_name)}")
+        temp_link = self._lookup(vertex_name)
+        # print(f"44. temp_link: {temp_link.edges.lookup(vertex_edges)}")
 
-        if self.vert_name_list.lookup(vertexes) is None:
-            # print(f"50. self.vert_name_list.lookup({vertexes}) {self.vert_name_list.lookup(vertexes)}")
-            temp = Vertex(vertexes)
-            temp.edges.append(vertex_name)
+        if self.vert_name_list.lookup(vertex_edges) is None:
+            print(f"47. self.vert_name_list.lookup({vertex_edges}) {self.vert_name_list.lookup(vertex_edges)}")
+            self._insert(vertex_edges, vertex_name)
 
-            # append new vertex to list of vertexes
-            self.vertexes.append(temp)
-            self.vert_name_list.append(vertexes)
-            self.length += 1
-        print(f"58. self.vert_name_list.lookup({vertexes}) {self.vert_name_list.lookup(vertexes)}")
+        print(f"50. self.vert_name_list.lookup({vertex_edges}) {self.vert_name_list.lookup(vertex_edges)}, {vertex_edges}")
+        print(f"61. self._lookup: {self._lookup(vertex_edges)}")
 
-        print(f"60. self.lookup('a'): {self.lookup('a')}")
-        self._insert(vertex_name, vertexes)
-        print(f"62. CHECK: self._insert({vertex_name}, {vertexes}): COMPLETE")
-        # а теперь делаем операцию наоборот
-        self._insert(vertexes, vertex_name)
-        print(f"65. CHECK: self._insert({vertexes}, {vertex_name}): COMPLETE")
+        # self._append(vertex_name, vertex_edges)
+        # self._append(vertex_edges, vertex_name)
 
-    def _insert(self, vertex_name, vertexes):
+    def _append(self, vertex, edges):
+        link = self._lookup(vertex)
+        print(link)
+        link.edges.append(edges)
+
+
+    def _insert(self, vertex_name, vertex_edges):
         """Функция для поиска и добавления вершины и связи между ними """
-        # проходим по списку вершин
-        find = False
-        print(f"71. vertex_name: {vertex_name}, vertexes: {vertexes}, self.vertexes.length: {self.vertexes.length}")
-
-        for i in range(self.vertexes.length):
-            # линк это ссылка на вершину, т.е. на class Vertex
-            link = next(self.vertexes)
-            # print(vertex_name, vertexes, link)
-            # когда получили вершину, проверяем, это та вершина что нам нужно или нет
-            # если link.vertex_name та что нам нужно
-            print(f"79. LINK: {link}")
-            if link is not None:
-                break
-            if link.vertex_name == vertex_name:
-                # если link.vertex_name та что нам нужно, проверяем,
-                # содержит ли она нужную вязь vertexes, и если не содержит
-                # добавляем новую связь
-                find = True
-                if not link.edges.lookup(vertexes):
-                    link.edges.append(vertexes)
-                break
-        if not find:
-            print(f"91. APPEND {vertexes} to list of vertexes")
-            temp = Vertex(vertex_name)
-            temp.edges.append(vertexes)
-            # append new vertex to list of vertexes
-            self.vertexes.append(temp)
+        temp = Vertex(vertex_name)
+        temp.edges.append(vertex_edges)
+        temp.vertex_name = vertex_name
+        # append new vertex to list of vertex_edges
+        self.vertexes.append(temp)
+        self.vert_name_list.append(vertex_name)
+        self.length += 1
 
 
 
@@ -112,10 +89,29 @@ class Graph:
                 print("-" * 100, "\n END def lookup\n", "-" * 100)
                 return link
 
+    def _lookup(self, vertex):
+        """lookup gelp function"""
+        # print(vertex)
+        res = False
+        for i in range(self.vert_name_list.length):
+            print(f"97. self.vertexes: {self.vertexes}")
+            link = next(self.vertexes)
+            print(link)
+            if link.vertex_name == vertex:
+                print(f"101. _lookup.link.vertex_name: {link.vertex_name}")
+                res = link
+        return res
 
 
-    def delete(self):
-        ...
+    def delete(self, vertex):
+        """delete function"""
+        # print(vertex)
+        for i in range(self.vert_name_list.length):
+            link = next(self.vertexes)
+            print(f"112. link.vertex_name: {link.vertex_name}")
+            v = link.edges.lookup('a')
+            print(f"114. v: {v}")
+
 
 
 

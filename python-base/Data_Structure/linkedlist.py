@@ -133,6 +133,7 @@ class LinkedList:
                     # print(last.data)
                     return last.data
                 elif count > self.length:
+                    self.start = 0
                     raise StopIteration
                 count += 1
 

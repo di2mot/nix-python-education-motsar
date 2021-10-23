@@ -1,11 +1,10 @@
-from linkedlist import LinkedList
 from queue import Queue
+from linkedlist import LinkedList
 from stack import Stack
 from hashtable import HashTable
 from binarytree import BinarySearchTree
 from graph import Graph
 
-import hashlib
 
 link = LinkedList()
 # link.append('a')
@@ -77,10 +76,17 @@ bts = BinarySearchTree()
 # bts.insert(98)
 # bts.PrintTree()
 
+
 # print(bts.lookup(27))
 l = LinkedList()
 graph = Graph()
 graph.insert("a", "b")
+# graph.lookup("a")
 graph.insert("a", "c")
 graph.insert("b", "c")
-graph.lookup("c")
+# graph.lookup("c")
+graph.insert("f", "c")
+# graph.lookup("a")
+# graph.lookup("f")
+graph.delete('a')
+
