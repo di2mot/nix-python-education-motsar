@@ -1,5 +1,6 @@
 """ A stack stores items in a last-in, first-out (LIFO) order. """
 
+
 class Node:
     """class by Node"""
 

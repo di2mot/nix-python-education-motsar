@@ -8,6 +8,7 @@ class Node:
         self.data = data
         self.next_data = None
 
+
 class Queue:
     """queue class
 
@@ -51,9 +52,6 @@ class Queue:
         self.length -= 1
         return res
 
-
     def __len__(self):
         """Add len function"""
         return self.length
-
-

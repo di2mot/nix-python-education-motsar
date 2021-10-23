@@ -7,21 +7,23 @@ from graph import Graph
 
 
 link = LinkedList()
-# link.append('a')
-# link.append('b')
-# link.append('c')
-# link.append('d')
-# link.append('e')
+link.append('a')
+link.append('b')
+link.append('c')
+link.append('d')
+link.append('e')
 # for i in range(4):
 #     print(next(link))
 # print(link.lookup('d'))
 # link.prepend('f')
 # print(link.lookup('d'))
 # link.insert('g', 3)
-# print(link.lookup('c'))
-# link.delete(3)
-# print(link.lookup('c'))
-# print("len: ", len(link))
+
+del_link = link.lookup('a')
+print(del_link)
+link.delete(del_link)
+print(link.lookup('a'))
+print("len: ", len(link))
 
 que = Queue()
 # que.enqueue(1)
@@ -89,4 +91,7 @@ graph.insert("f", "c")
 # graph.lookup("a")
 # graph.lookup("f")
 graph.delete('a')
+print(graph.vert_name_list.lookup('a'))
+print(graph.lookup("a"))
+
 

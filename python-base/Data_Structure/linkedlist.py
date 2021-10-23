@@ -1,5 +1,6 @@
 """My Data Strucures"""
 
+
 class Node:
     """class by Node"""
 
@@ -66,7 +67,6 @@ class LinkedList:
         last.next_data = new_node
         self.length += 1
 
-
     def insert(self, data, index):
         """ вставить элемент на конкретный индекс со сдвигом элементов направо"""
         if not isinstance(index, int):
@@ -108,9 +108,13 @@ class LinkedList:
 
         priv = self.head
         last = self.head
-        for temp_index in range(self.length):
-            print(f"priv: {priv.data}, last.data: {last.data}, temp_index: {temp_index}")
 
+        if index == 0:
+            self.head = self.head.next_data
+            self.length -= 1
+            return
+
+        for temp_index in range(self.length):
             if temp_index == index:
                 # нашли нужный индекс
                 priv.next_data = last.next_data
@@ -130,7 +134,6 @@ class LinkedList:
                     last = last.next_data
                 elif count == self.start:
                     self.start += 1
-                    # print(last.data)
                     return last.data
                 elif count > self.length:
                     self.start = 0

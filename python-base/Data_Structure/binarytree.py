@@ -2,6 +2,7 @@
 A binary search tree is a binary tree where the nodes are ordered in a specific way.
 """
 
+
 class Node:
     """class by Node"""
 
@@ -35,7 +36,6 @@ class BinarySearchTree:
                 last = last.left
             elif last.data == data:
                 return last
-
 
     def insert(self, data):
         """insert - добавить элемент"""
@@ -80,7 +80,6 @@ class BinarySearchTree:
 
         self._delete(last, data)
 
-
     def _delete(self, last, data):
         """recursive function"""
         # if value not found in tree
@@ -92,11 +91,9 @@ class BinarySearchTree:
 
             last.left = self._delete(last=last.left, data=data)
 
-
         elif data > last.data:
 
             last.right = self._delete(last=last.right, data=data)
-
 
         else:
 
@@ -108,7 +105,6 @@ class BinarySearchTree:
                 last = last.left
                 return last
 
-
             temp = self._min_value(last.right)
 
             last.data = temp.data
@@ -116,7 +112,7 @@ class BinarySearchTree:
 
         return last
 
-    def PrintTree(self):
+    def printTree(self):
         last = self.head
 
         def printer(last):
