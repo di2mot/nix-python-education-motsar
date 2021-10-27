@@ -19,7 +19,6 @@ def binary_search(lst: list, value: int) -> int:
                 if sort_slice[n] == value:
                     return i
                 i += 1
-                # print(i)
                 if i > len(lst):
                     raise ValueError("Not found")
         else:
