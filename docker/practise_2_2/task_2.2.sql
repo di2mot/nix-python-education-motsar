@@ -105,8 +105,8 @@ JOIN order_status os ON os.order_status_id = o.order_status_order_status_id
 WHERE order_status_order_status_id = 3
     and update_at < '12-31-2020'::date;
 
--- Task 3.5
-SELECT o.order_id, o.update_at, os.status_name
+-- Task 3.6
+SELECT o.cart_cart_id, os.status_name
 FROM orders AS o
 JOIN order_status os ON os.order_status_id = o.order_status_order_status_id
 WHERE order_status_order_status_id = 2;
