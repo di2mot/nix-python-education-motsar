@@ -15,9 +15,9 @@ class Node:
 class BinarySearchTree:
     """Binary Search Tree class
 
-    insert - добавить элемент,
-    lookup - найти элемент по значению и вернуть ссылку на него (узел),
-    delete - удалить элемент по значению
+    insert - add an element,
+    lookup - find an element by value and return a link to it (node),
+    delete - delete an element by value
     """
 
     def __init__(self):
@@ -25,7 +25,7 @@ class BinarySearchTree:
         self.length = 0
 
     def lookup(self, data):
-        """lookup - найти элемент по значению и вернуть ссылку на него (узел)"""
+        """lookup - find an element by value and return a link to it (node)"""
 
         last = self.head
 
@@ -38,7 +38,9 @@ class BinarySearchTree:
                 return last
 
     def insert(self, data):
-        """insert - добавить элемент"""
+        """insert - add an element,"""
+        if not isinstance(data, int):
+            raise TypeError("Type must be <class 'int'>")
 
         if self.head is None:
             self.head = Node(data=data)
@@ -51,16 +53,19 @@ class BinarySearchTree:
             if last.data > data:
                 if last.left is None:
                     last.left = Node(data)
+                    self.length += 1
                     break
                 last = last.left
 
             elif last.data < data:
                 if last.right is None:
                     last.right = Node(data)
+                    self.length += 1
                     break
                 else:
                     last = last.right
             else:
+                self.length += 1
                 break
 
     @staticmethod
@@ -71,32 +76,30 @@ class BinarySearchTree:
         return last
 
     def delete(self, data):
-        """delete - удалить элемент по значению"""
+        """ delete - delete an element by value"""
+        if not isinstance(data, int):
+            raise TypeError("Type must be <class 'int'>")
         # check case tree is empty
         if self.head is None:
-            raise IndexError("Not find in tree")
+            raise ValueError("Not find in tree")
 
         last = self.head
-
         self._delete(last, data)
+        self.length -= 1
 
     def _delete(self, last, data):
         """recursive function"""
         # if value not found in tree
-        # print(last)
         if last is None:
             raise ValueError("Not <binarytree.Node object>")
 
         if data < last.data:
-
             last.left = self._delete(last=last.left, data=data)
 
         elif data > last.data:
-
             last.right = self._delete(last=last.right, data=data)
 
         else:
-
             if last.left is None:
                 last = last.right
                 return last
@@ -106,7 +109,6 @@ class BinarySearchTree:
                 return last
 
             temp = self._min_value(last.right)
-
             last.data = temp.data
             last.right = self._delete(last.right, temp.data)
 

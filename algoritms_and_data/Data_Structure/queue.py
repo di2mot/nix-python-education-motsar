@@ -12,9 +12,9 @@ class Node:
 class Queue:
     """queue class
 
-    enqueue - добавить элемент в конец очереди,
-    dequeue - изъять элемент из начала очереди,
-    peek - получить значение элемента в начале очереди"""
+    enqueue - add an element to the end of the queue,
+    dequeue - remove an element from the head of the queue,
+    peek - get the value of the element at the head of the queue"""
 
     def __init__(self):
         self.start = None
@@ -22,7 +22,7 @@ class Queue:
         self.length = 0
 
     def enqueue(self, new_data):
-        """enqueue - добавить элемент в конец очереди"""
+        """enqueue - add an element to the end of the queue,"""
         new_node = Node(data=new_data)
         # print(new_node)
 
@@ -41,11 +41,11 @@ class Queue:
         self.length += 1
 
     def peek(self):
-        """peek - получить значение элемента в начале очереди"""
+        """dequeue - remove an element from the head of the queue"""
         return self.head.data
 
     def dequeue(self):
-        """dequeue - изъять элемент из начала очереди"""
+        """peek - get the value of the element at the head of the queue"""
 
         res = self.head.data
         self.head = self.head.next_data

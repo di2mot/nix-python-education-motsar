@@ -12,9 +12,9 @@ class Node:
 
 class HashTable:
     """HashTable class
-    insert - добавить элемент с ключом (индекс = хеш_функция(ключ)),
-    lookup - получить значение по ключу,
-    delete - удалить значение по ключу
+    insert - add an element with a key (index = hash_function (key)),
+    lookup - get value by key,
+    delete - delete a value by key
     """
 
     def __init__(self):
@@ -23,7 +23,6 @@ class HashTable:
 
     def lookup(self, key):
         """Find index of element"""
-        print(hash(key))
         key = hash(key)
         last = self.head
         res = None
@@ -38,32 +37,32 @@ class HashTable:
         return res
 
     def insert(self, data, key):
-        """  prepend - добавить в начало списка элемент """
+        """  insert - add an element with a key (index = hash_function (key)) """
         new_head = Node(data)
         new_head.next_data = self.head
         new_head.hash = hash(key)
         self.head = new_head
         self.length += 1
 
-
-
     def delete(self, index):
-        """  удалить элемент по индексу """
+        """  delete - delete a value by key """
         if not isinstance(index, int):
             raise ValueError(f"index must be <class 'int'>, not {type(index)}")
 
         if index > self.length:
-            # Если индекс больше длинны списка, то райзим ошибку.
+            # If the index is longer than the list, then the error is raised.
             raise IndexError("Index error, index outside list")
 
         priv = self.head
         last = self.head
-        for temp_index in range(self.length):
-            print(f"priv: {priv.data}, last.data: {last.data}, temp_index: {temp_index}")
-
+        for temp_index in range(self.length+1):
             if temp_index == index:
-                # нашли нужный индекс
-                priv.next_data = last.next_data
+
+                # found the desired index
+                if last:
+                    priv.next_data = last.next_data
+                else:
+                    priv.next_data = last
                 self.length -= 1
                 return
             priv = last

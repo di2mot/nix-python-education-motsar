@@ -28,7 +28,7 @@ class Graph:
 
     def insert(self, vertex_name, vertex_edges):
         """insert- add a node and links to other nodes by links"""
-        print("-" * 100, "\ndef insert\n", "-" * 100)
+        # print("-" * 100, "\ndef insert\n", "-" * 100)
 
         # check if there are elements in the vertex list
         if self.vert_name_list.lookup(vertex_name) is None:
@@ -86,3 +86,7 @@ class Graph:
         ind = self.vert_name_list.lookup(vertex)
         if ind is not None:
             self.vert_name_list.delete(ind)
+
+    def __len__(self):
+        """Add len function"""
+        return self.length
